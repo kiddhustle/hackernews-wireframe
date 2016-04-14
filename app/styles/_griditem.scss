@@ -1,0 +1,74 @@
+$grid-gutter:1rem;
+$griditem-width:20rem;
+$griditem-height:20rem;
+$griditem-bgcolor:#cccccc;
+$griditem-bgcolor-open:#FFF68F;
+.ellipsis {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+@mixin ellipsis-fade($line-height, $num-lines, $bg-color) {
+	$block-height:$line-height*$num-lines;
+	position: relative;
+  	height: $block-height;
+  	overflow: hidden;
+  	line-height: $line-height;
+  	&:after {
+  		content: "";
+		text-align: right;
+		position: absolute;
+		bottom: 0;
+		right: 0;
+		width: 70%;
+		height: 1.2em;
+		background: linear-gradient(to right, rgba(red($bg-color), green($bg-color), blue($bg-color), 0), rgba(red($bg-color), green($bg-color), blue($bg-color), 1) 50%);
+  	}
+}
+
+.grid {
+	text-align:left;
+	vertical-align:top;
+}
+.griditem {
+	display:inline-block;
+	// float:left;
+	width:$griditem-width;
+	height:$griditem-height;
+
+	overflow:hidden;
+	margin: 0 $grid-gutter $grid-gutter 0;
+	padding:$grid-gutter;
+	background:$griditem-bgcolor;
+	cursor:pointer;
+}
+
+.griditem--open {
+	background:$griditem-bgcolor-open;
+	width:($griditem-width*2)+$grid-gutter;
+	height:$griditem-height*2;
+
+	.griditem__text{
+		@include ellipsis-fade(1.8rem, 14.5, $griditem-bgcolor-open);
+	}
+	.griditem__title{
+		@include ellipsis-fade(2rem, 3,$griditem-bgcolor-open);
+	}
+}
+.griditem__title{
+	font-size:1.75rem;
+	// line-height:2rem;
+	margin:1rem 0;
+	height:6rem;
+	width: 18rem;
+	@include ellipsis-fade(2rem, 3,$griditem-bgcolor);
+}
+.griditem__byline{}
+
+.griditem__text{
+	 @include ellipsis-fade(1.8rem, 4,$griditem-bgcolor);
+}
+
+
+
